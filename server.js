@@ -12,20 +12,34 @@ var passport = require('passport');
 var GoogleOAuth2Strategy = require('passport-google-auth').Strategy;
 
 var google = require('googleapis');
-var googleSecret = require('./google-secret');
+
+
+// Default authentication info from environment variables
+var clientId = process.env.CLIENT_ID;
+var clientSecret = process.env.CLIENT_SECRET;
+var origin = process.env.ORIGIN;
+
+try {
+  var googleSecret = require('./google-secret');
+  clientId = googleSecret.web.client_id;
+  clientSecret = googleSecret.web.client_secret;
+  origin = googleSecret.web.javascript_origins[0];
+} catch (err) {
+  console.log("No google-secret.json found, falling back on environment variables");
+}
 
 var app = express();
 
 app.use(morgan('dev')); // log every request to the console
 
-app.use(session({ secret: 'somethingverysecret', resave: false, saveUninitialized: true }));
+app.use(session({secret: 'somethingverysecret', resave: false, saveUninitialized: true}));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
 passport.use(new GoogleOAuth2Strategy({
-    clientId: googleSecret.web.client_id,
-    clientSecret: googleSecret.web.client_secret,
-    callbackURL: 'http://127.0.0.1:5000/auth/google/callback',
+    clientId: clientId,
+    clientSecret: clientSecret,
+    callbackURL: origin +'/auth/google/callback',
     accessType: 'offline',
     scope: [
       'https://www.googleapis.com/auth/userinfo.email',
@@ -75,9 +89,9 @@ app.get('/messages', function (req, res) {
   var OAuth2 = google.auth.OAuth2;
 
   var oauth2Client = new OAuth2(
-    googleSecret.web.client_id,
-    googleSecret.web.client_secret,
-    googleSecret.web.javascript_origins[0]
+    clientId,
+    clientSecret,
+    origin
   );
 
   oauth2Client.setCredentials({
@@ -91,7 +105,7 @@ app.get('/messages', function (req, res) {
     userId: 'me',
     auth: oauth2Client
   }, function (err, response) {
-    return res.render('messages', { error: err, response: response});
+    return res.render('messages', {error: err, response: response});
   });
 });
 
