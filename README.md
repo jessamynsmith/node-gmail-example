@@ -7,6 +7,8 @@ View the running app on [Heroku](https://node-gmail-example.herokuapp.com/)
 
 ### Create a Google Project
 
+You can create projects at: https://console.developers.google.com
+
 #### Enable APIs:
 1. Google+
 1. Gmail
