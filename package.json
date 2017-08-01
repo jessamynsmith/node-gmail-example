@@ -1,0 +1,30 @@
+{
+  "name": "node-gmail-example",
+  "version": "1.0.0",
+  "description": "Example of retrieving gmail messages using node",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "google",
+    "gmail",
+    "api"
+  ],
+  "author": "Jessamyn Smith",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.3",
+    "express-hbs": "^1.0.4",
+    "express-session": "^1.15.4",
+    "googleapis": "^20.1.0",
+    "handlebars": "^4.0.10",
+    "heroku-ssl-redirect": "0.0.4",
+    "morgan": "^1.8.2",
+    "passport": "^0.3.2",
+    "passport-google-auth": "^1.0.2"
+  },
+  "repository": "https://github.com/jessamynsmith/node-gmail-example"
+}

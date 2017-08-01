@@ -1,0 +1,22 @@
+<!DOCTYPE>
+<html>
+<head>
+  <title>Gmail Messages</title>
+</head>
+  <h3>Gmail Messages</h3>
+  <a href="/">Home</a>
+  <div>
+      {{#if err}}
+          <div>{{err}}</div>
+      {{/if}}
+      {{#if response}}
+          <div>
+              <ul>
+              {{#each response.messages}}
+                  <li>{{id}}</li>
+              {{/each}}
+              </ul>
+          </div>
+      {{/if}}
+  </div>
+</html>

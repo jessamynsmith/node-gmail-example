@@ -1,0 +1,17 @@
+<!DOCTYPE>
+<html>
+<head>
+  <title>Node Gmail Example</title>
+</head>
+  <h3>Node Gmail Example</h3>
+  <div>
+      {{#if user }}
+          <p>Logged in as {{user.email}}</p>
+          <p><a href="/messages">Gmail Messages</a></p>
+          <p><a href="/logout">Logout</a></p>
+      {{else}}
+          <p><a href="/login">Login using Google</a></p>
+      {{/if}}
+
+  </div>
+</html>
